@@ -2,6 +2,8 @@ from flask import Flask, request, redirect, url_for, jsonify
 from flask_cors import CORS
 from datetime import datetime
 import sqlite3
+from llm2 import upload_doc, generate_writing_prompt
+import time
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -56,8 +58,21 @@ def new_note():
         cursor.execute('INSERT INTO notes (date, content) VALUES (?, ?)', (date, content))
         conn.commit()
         conn.close()
+        upload_doc(content, "123", f"{time.time}") # TODO change instead of 1
+
         return redirect(url_for('new_note')) # not sure what to return here
     return "wrong place!"
+
+
+@app.route('/prompt')
+def get_prompt():
+    prompt = generate_writing_prompt("123") # TODO change id here too
+    #prompt = "Disabled for now"
+    print(prompt)
+    print(jsonify({'prompt': prompt}))
+    return jsonify({'prompt': prompt})
+    
+
 
 if __name__ == '__main__':
     init_db()
