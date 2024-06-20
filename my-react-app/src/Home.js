@@ -4,13 +4,13 @@ import NoteList from './NoteList';
 import './Home.css';
 
 function Home() {
-    const [active, setActive] = useState("NewNote");
+    const [active, setActive] = useState("Home");
 
     const renderContent = () => {
-        if (active === "NewNote") {
+        if (active === "Home") {
+            return <NoteList />;
+        } else if (active === "NewNote") {
             return <NewNote />;
-        } else if (active === "Home") {
-            return <div className="welcome-message">Welcome to your Digital Diary!</div>;
         }
     };
 

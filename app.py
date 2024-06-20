@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask_cors import CORS
 from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 # Initialize database
 def init_db():
@@ -27,10 +29,28 @@ def index():
     conn.close()
     return render_template('index.html', notes=notes)
 
+@app.route('/getNotes', methods=['GET'])
+def get_notes():
+    conn = sqlite3.connect('diary.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT date, content FROM notes ORDER BY date DESC')
+    notes = cursor.fetchall()
+    conn.close()
+    print("notes are:")
+    print(notes)
+    print("#####################")
+    def convert_bytes(item):
+        if isinstance(item, bytes):
+            return item.decode('utf-8')
+        return item
+    
+    notes_serializable = [(date, convert_bytes(message)) for date, message in notes]
+    return jsonify(notes_serializable)
+
 @app.route('/new', methods=['GET', 'POST'])
 def new_note():
     if request.method == 'POST':
-        content = request.form['content']
+        content = request.data
         date = datetime.now().strftime('%Y-%m-%d')
         conn = sqlite3.connect('diary.db')
         cursor = conn.cursor()
@@ -38,7 +58,7 @@ def new_note():
         conn.commit()
         conn.close()
         return redirect(url_for('index'))
-    return render_template('new_note.html')
+    return "wrong place!"
 
 if __name__ == '__main__':
     init_db()

@@ -27,18 +27,18 @@ def index():
     conn.close()
     return render_template('index.html', notes=notes)
 
-# @app.route('/new', methods=['GET', 'POST'])
-# def new_note():
-#     if request.method == 'POST':
-#         content = request.form['content']
-#         date = datetime.now().strftime('%Y-%m-%d')
-#         conn = sqlite3.connect('diary.db')
-#         cursor = conn.cursor()
-#         cursor.execute('INSERT INTO notes (date, content) VALUES (?, ?)', (date, content))
-#         conn.commit()
-#         conn.close()
-#         return redirect(url_for('index'))
-#     return render_template('new_note.html')
+@app.route('/new', methods=['GET', 'POST'])
+def new_note():
+    if request.method == 'POST':
+        content = request.form['content']
+        date = datetime.now().strftime('%Y-%m-%d')
+        conn = sqlite3.connect('diary.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO notes (date, content) VALUES (?, ?)', (date, content))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    return render_template('new_note.html')
 
 if __name__ == '__main__':
     init_db()
