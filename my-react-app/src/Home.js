@@ -31,17 +31,24 @@ function Home() {
 const Navigation = ({ active, setActive }) => {
     return (
         <nav>
-            <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/32x32/leaf.png"
-            style={{ width: '32px', height: '32px', marginRight: '10px', marginTop: '30px' }}/>
-            <h1>TheraPrompt</h1>
-            <a
-                href="#"
-                className={active === "NewNote" ? "active" : ""}
-                onClick={() => active === "NewNote" ? setActive("Home") : setActive("NewNote")}
-                style={{ color: active === "NewNote" ? '#007bff' : '#000000', textDecoration: 'none', display: 'flex', alignItems: 'center', marginLeft: '10px'}}
-            >
-                <FontAwesomeIcon icon={faPenToSquare} />
-            </a>
+            <div style={{display:"flex"}} className="container mx-auto p-4 bg-white bg-opacity-80 rounded-lg shadow-lg">
+            {/* <header className="text-center py-4"> */}
+                <img src="/public/images/logo.png"
+                    style={{ width: '32px', height: '32px', marginRight: '10px', marginTop: '5px' }}/>
+                    
+                        
+                            <h1>TheraPrompt</h1>
+                            
+                            <a
+                                href="#"
+                                className={active === "NewNote" ? "active" : ""}
+                                onClick={() => active === "NewNote" ? setActive("Home") : setActive("NewNote")}
+                                style={{ color: active === "NewNote" ? '#007bff' : '#000000', textDecoration: 'none', display: 'flex', alignItems: 'center', marginLeft: '10px'}}
+                            >
+                                <FontAwesomeIcon icon={faPenToSquare} />
+                            </a>
+                            {/* </header> */}
+            </div>
         </nav>
     );
 };
