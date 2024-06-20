@@ -58,7 +58,7 @@ def new_note():
         cursor.execute('INSERT INTO notes (date, content) VALUES (?, ?)', (date, content))
         conn.commit()
         conn.close()
-        upload_doc(content, "123", f"{time.time}") # TODO change instead of 1
+        upload_doc(content, "123", f"{time.time()}") # TODO change instead of 1
 
         return redirect(url_for('new_note')) # not sure what to return here
     return "wrong place!"
