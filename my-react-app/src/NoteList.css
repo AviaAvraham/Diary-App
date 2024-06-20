@@ -35,14 +35,14 @@
   }
   
   .delete-icon {
-    color: #dc3545; /* Bootstrap red */
+    color: #38afca; /* Bootstrap red */
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s ease;
   }
   
   .delete-icon:hover {
-    color: #c82333; /* Darker shade of red on hover */
+    color: #e81127; /* Darker shade of red on hover */
   }
   
   
