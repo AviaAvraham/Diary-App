@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, request, redirect, url_for, jsonify
 from flask_cors import CORS
 from datetime import datetime
 import sqlite3
@@ -56,7 +56,7 @@ def new_note():
         cursor.execute('INSERT INTO notes (date, content) VALUES (?, ?)', (date, content))
         conn.commit()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('new_note')) # not sure what to return here
     return "wrong place!"
 
 if __name__ == '__main__':
