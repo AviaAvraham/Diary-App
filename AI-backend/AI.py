@@ -33,7 +33,6 @@ def load_conversation_history(patient_id:int) -> List[Dict[str, Any]]:
                     {"role": "system", "content": "You are my cognitive-behavioral assitant in a digital diary therapy application. Your role is to encourage the patient to write in the diary, and help him process his thoughts and emotions."},
                     {"role": "system", "content": PROMPT_INITIAL}
                 ]
-        return []
 
 def save_conversation_history(patient_id: int, current_conversation: List[Dict[str, Any]]) -> None:
     existing_history_patient = load_conversation_history(patient_id)
