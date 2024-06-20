@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const NoteList = ({editNote, deleteNote }) => {
+const NoteList = ({ editNote, deleteNote }) => {
   const [notes, setNotes] = useState([]);
-  const getNotes = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/getNotes');
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  getNotes().then((data) => {
-    notes = data;
-    console.log("notes aren't " + notes); // Log the notes after they are fetched
-  });
-  console.log("notes are " + notes)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/getNotes');
+        setNotes(response.data); // Update notes state with fetched data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // Call fetchData function when component mounts
+  }, []); // Empty dependency array ensures this effect runs only once on mount
+
+  console.log("notes are ", notes);
+
   return (
     <div>
-      {notes.map((notes) => (<div></div>))}
-      {/* {notes.map((note) => (
+      {notes.map((note) => (
         <div key={note.id}>
-          <p>{note.content}</p>
-          <button onClick={() => editNote(note)}>Edit</button>
+          <p>{note.date + ": " + note.message}</p>
           <button onClick={() => deleteNote(note.id)}>Delete</button>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };

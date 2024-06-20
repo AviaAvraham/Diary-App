@@ -20,37 +20,36 @@ def init_db():
     conn.commit()
     conn.close()
 
-@app.route('/')
-def index():
-    conn = sqlite3.connect('diary.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT date, content FROM notes ORDER BY date DESC')
-    notes = cursor.fetchall()
-    conn.close()
-    return render_template('index.html', notes=notes)
+# @app.route('/')
+# def index():
+#     conn = sqlite3.connect('diary.db')
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT id, date, content FROM notes ORDER BY date DESC')
+#     notes = cursor.fetchall()
+#     conn.close()
+#     return render_template('index.html', notes=notes)
 
 @app.route('/getNotes', methods=['GET'])
 def get_notes():
     conn = sqlite3.connect('diary.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT date, content FROM notes ORDER BY date DESC')
+    cursor.execute('SELECT id, date, content FROM notes ORDER BY date DESC')
     notes = cursor.fetchall()
     conn.close()
-    print("notes are:")
-    print(notes)
-    print("#####################")
+    
     def convert_bytes(item):
         if isinstance(item, bytes):
             return item.decode('utf-8')
         return item
     
-    notes_serializable = [(date, convert_bytes(message)) for date, message in notes]
+    notes_serializable = [{'id': id, 'date': date, 'message': convert_bytes(message)} for id, date, message in notes]
     return jsonify(notes_serializable)
 
 @app.route('/new', methods=['GET', 'POST'])
 def new_note():
     if request.method == 'POST':
-        content = request.data
+        print(request.json["message"])
+        content = request.json["message"]
         date = datetime.now().strftime('%Y-%m-%d')
         conn = sqlite3.connect('diary.db')
         cursor = conn.cursor()
