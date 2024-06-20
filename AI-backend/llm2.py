@@ -13,6 +13,7 @@ import os
 os.environ['OPENAI_API_KEY'] = 'sk-proj-lhrGw7CEUgR5WPe121plT3BlbkFJrbDuDxFBIgADbCxugJnF'
 os.environ['PINECONE_API_KEY'] = '39e6ca0c-4d12-419b-9623-d4e1c0f871ca'
 index_name = "writing-history"
+llm = ChatOpenAI(model_name="gpt-4", temperature=0.5)
 embeddings = OpenAIEmbeddings()
 
 
@@ -30,26 +31,15 @@ def upload_doc(str_doc, user_id):
     vectorstore.add_documents(docs)
 
 def generate_writing_prompt():
-    pass
-
+    vectorstore = PineconeVectorStore(index_name=index_name, embedding=embeddings)
+    retriever = vectorstore.as_retriever()
+    chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+    # answer = chain({"question": "give me a prompt to journal"}, return_only_outputs=True)
+    # print(answer)
 
 # loader = TextLoader("history.txt")
 # documents = loader.load()
 
-
-
-
-retriever = vectorstore.as_retriever()
-
-# Initialize language model
-llm = ChatOpenAI(model_name="gpt-4", temperature=0.5)
-
-# Create RetrievalQAWithSourcesChain
-chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-
-# Query the chain
-# answer = chain({"question": "give me a prompt to journal"}, return_only_outputs=True)
-# print(answer)
 
 def main():
     print("hi")
