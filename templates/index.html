@@ -1,14 +1,12 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h2>My Notes</h2>
-<ul>
-    {% for date, content in notes %}
-    <li class="note">
-        <strong>{{ date }}</strong><br>
-        <p>Today's thoughts:</p>
-        <p>{{ content }}</p>
-    </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://kit.fontawesome.com/14a1c5c313.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
