@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Notes</h2>
+<ul>
+    {% for date, content in notes %}
+    <li class="note">
+        <strong>{{ date }}</strong><br>
+        <p>Today's thoughts:</p>
+        <p>{{ content }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
