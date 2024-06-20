@@ -1,4 +1,44 @@
-.active {
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    color: #333;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    padding: 0 10px;
+  }
+  
+  nav a.active {
     font-weight: bold;
-    color: red;
-}
+    color: #007bff;
+  }
+  
+  main {
+    text-align: center;
+  }
+  
+  .welcome-message {
+    font-size: 24px;
+    color: #666;
+  }
+  

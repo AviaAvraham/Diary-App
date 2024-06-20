@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import NewNote from './NewNote.js';
+import NoteList from './NoteList';
+import './Home.css';
 
 function Home() {
-    const [active, changeActive] = useState("NewNote");
+    const [active, setActive] = useState("NewNote");
 
     const renderContent = () => {
-        if (active === "Home") {
-            return <div>Welcome to the Home page!</div>;
-        } else if (active === "NewNote") {
-            return <div>Create a new note here.</div>;
+        if (active === "NewNote") {
+            return <NewNote />;
+        } else if (active === "Home") {
+            return <div className="welcome-message">Welcome to your Digital Diary!</div>;
         }
     };
 
@@ -15,29 +18,35 @@ function Home() {
         <div className="container">
             <header>
                 <h1>Digital Diary</h1>
-                <nav>
-                    <a
-                        href="#"
-                        className={active === "Home" ? "active" : ""}
-                        onClick={() => changeActive("Home")}
-                    >
-                        Home
-                    </a>
-                    <br />
-                    <a
-                        href="#"
-                        className={active === "NewNote" ? "active" : ""}
-                        onClick={() => changeActive("NewNote")}
-                    >
-                        New Note
-                    </a>
-                </nav>
+                <Navigation active={active} setActive={setActive} />
             </header>
             <main>
                 {renderContent()}
             </main>
         </div>
-        )
+    );
 }
+
+const Navigation = ({ active, setActive }) => {
+    return (
+        <nav>
+            <a
+                href="#"
+                className={active === "Home" ? "active" : ""}
+                onClick={() => setActive("Home")}
+            >
+                Home
+            </a>
+            <span> - - </span>
+            <a
+                href="#"
+                className={active === "NewNote" ? "active" : ""}
+                onClick={() => setActive("NewNote")}
+            >
+                New Note
+            </a>
+        </nav>
+    );
+};
 
 export default Home;
