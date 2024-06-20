@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import NewNote from './NewNote.js';
 import NoteList from './NoteList';
 import './Home.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const [active, setActive] = useState("Home");
@@ -17,7 +19,6 @@ function Home() {
     return (
         <div className="container">
             <header>
-                <h1>Digital Diary</h1>
                 <Navigation active={active} setActive={setActive} />
             </header>
             <main>
@@ -30,20 +31,16 @@ function Home() {
 const Navigation = ({ active, setActive }) => {
     return (
         <nav>
-            <a
-                href="#"
-                className={active === "Home" ? "active" : ""}
-                onClick={() => setActive("Home")}
-            >
-                Home
-            </a>
-            <span> - - </span>
+            <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/32x32/leaf.png"
+            style={{ width: '32px', height: '32px', marginRight: '10px', marginTop: '30px' }}/>
+            <h1>TheraPrompt</h1>
             <a
                 href="#"
                 className={active === "NewNote" ? "active" : ""}
-                onClick={() => setActive("NewNote")}
+                onClick={() => active === "NewNote" ? setActive("Home") : setActive("NewNote")}
+                style={{ color: active === "NewNote" ? '#007bff' : '#000000', textDecoration: 'none', display: 'flex', alignItems: 'center', marginLeft: '10px'}}
             >
-                New Note
+                <FontAwesomeIcon icon={faPenToSquare} />
             </a>
         </nav>
     );
