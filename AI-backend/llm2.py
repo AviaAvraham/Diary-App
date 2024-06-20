@@ -8,7 +8,9 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from langchain_pinecone import PineconeVectorStore
 from langchain_text_splitters import CharacterTextSplitter
 import os
+from dotenv import load_dotenv
 
+load_dotenv(override=True)
 
 os.environ['OPENAI_API_KEY'] = 'sk-proj-lhrGw7CEUgR5WPe121plT3BlbkFJrbDuDxFBIgADbCxugJnF'
 os.environ['PINECONE_API_KEY'] = '39e6ca0c-4d12-419b-9623-d4e1c0f871ca'
