@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './NoteList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const NoteList = ({ editNote, deleteNote }) => {
   const [notes, setNotes] = useState([]);
@@ -20,15 +23,18 @@ const NoteList = ({ editNote, deleteNote }) => {
   console.log("notes are ", notes);
 
   return (
-    <div>
-      {notes.map((note) => (
-        <div key={note.id}>
-          <p>{note.date + ": " + note.message}</p>
-          <button onClick={() => deleteNote(note.id)}>Delete</button>
-        </div>
-      ))}
-    </div>
-  );
+      <div className="note-container">
+        {notes.map((note) => (
+          <div className="note" key={note.id}>
+            <div className="note-header">
+              <span className="note-date">{note.date}</span>
+              <FontAwesomeIcon icon={faTrashAlt} className="delete-icon" onClick={() => deleteNote(note.id)} />
+            </div>
+            <div className="note-content">{note.message}</div>
+          </div>
+        ))}
+      </div>
+    );
 };
 
 export default NoteList;
